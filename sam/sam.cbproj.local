@@ -1,14 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <BorlandProject>
-  <Transactions>
-    <Transaction>2025.10.22 17:20:08.623,=C:\Users\kubak\OneDrive\Dokumenty\Embarcadero\Studio\Projects\Project1PCH1.h</Transaction>
-    <Transaction>2025.10.22 17:20:08.682,=C:\Users\kubak\OneDrive\Dokumenty\Embarcadero\Studio\Projects\Unit4.cpp</Transaction>
-    <Transaction>2025.10.22 17:20:59.028,C:\Users\kubak\OneDrive\Dokumenty\Embarcadero\Studio\sam\samPCH1.h=C:\Users\kubak\OneDrive\Dokumenty\Embarcadero\Studio\Projects\Project1PCH1.h</Transaction>
-    <Transaction>2025.10.22 17:20:59.042,C:\Users\kubak\OneDrive\Dokumenty\Embarcadero\Studio\sam\Unit4.h=C:\Users\kubak\OneDrive\Dokumenty\Embarcadero\Studio\Projects\Unit4.h</Transaction>
-    <Transaction>2025.10.22 17:20:59.042,C:\Users\kubak\OneDrive\Dokumenty\Embarcadero\Studio\sam\Unit4.cpp=C:\Users\kubak\OneDrive\Dokumenty\Embarcadero\Studio\Projects\Unit4.cpp</Transaction>
-    <Transaction>2025.10.22 17:20:59.042,C:\Users\kubak\OneDrive\Dokumenty\Embarcadero\Studio\sam\Unit4.dfm=C:\Users\kubak\OneDrive\Dokumenty\Embarcadero\Studio\Projects\Unit4.dfm</Transaction>
-    <Transaction>2025.10.22 17:20:59.058,C:\Users\kubak\OneDrive\Dokumenty\Embarcadero\Studio\sam\sam.cbproj=C:\Users\kubak\OneDrive\Dokumenty\Embarcadero\Studio\Projects\Project1.cbproj</Transaction>
-    <Transaction>2025.10.22 17:21:07.904,C:\Users\kubak\OneDrive\Dokumenty\Embarcadero\Studio\sam\sam.cbproj=C:\Users\kubak\OneDrive\Dokumenty\Embarcadero\Studio\sam\sam.cbproj</Transaction>
-    <Transaction>2025.10.22 17:43:06.781,=C:\Users\kubak\OneDrive\Dokumenty\Embarcadero\Studio\sam\Unit1.cpp</Transaction>
+	<Transactions>
+    <Transaction>1899.12.30 00:00:00.000.623,=C:\Users\kubak\OneDrive\Dokumenty\Embarcadero\Studio\Projects\Project1PCH1.h</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.028,C:\Users\kubak\OneDrive\Dokumenty\Embarcadero\Studio\Projects\Project1PCH1.h=C:\Users\kubak\OneDrive\Dokumenty\Embarcadero\Studio\sam\samPCH1.h</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.682,=C:\Users\kubak\OneDrive\Dokumenty\Embarcadero\Studio\Projects\Unit4.cpp</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.042,C:\Users\kubak\OneDrive\Dokumenty\Embarcadero\Studio\Projects\Unit4.cpp=C:\Users\kubak\OneDrive\Dokumenty\Embarcadero\Studio\sam\Unit4.cpp</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.904,C:\Users\kubak\OneDrive\Dokumenty\Embarcadero\Studio\sam\sam.cbproj=C:\Users\kubak\OneDrive\Dokumenty\Embarcadero\Studio\sam\sam.cbproj</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.781,=C:\Users\kubak\OneDrive\Dokumenty\Embarcadero\Studio\sam\Unit1.cpp</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.042,C:\Users\kubak\OneDrive\Dokumenty\Embarcadero\Studio\Projects\Unit4.h=C:\Users\kubak\OneDrive\Dokumenty\Embarcadero\Studio\sam\Unit4.h</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.058,C:\Users\kubak\OneDrive\Dokumenty\Embarcadero\Studio\Projects\Project1.cbproj=C:\Users\kubak\OneDrive\Dokumenty\Embarcadero\Studio\sam\sam.cbproj</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.042,C:\Users\kubak\OneDrive\Dokumenty\Embarcadero\Studio\Projects\Unit4.dfm=C:\Users\kubak\OneDrive\Dokumenty\Embarcadero\Studio\sam\Unit4.dfm</Transaction>
   </Transactions>
 </BorlandProject>

@@ -1,7 +1,6 @@
 object Form4: TForm4
   Left = 0
   Top = 0
-  BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
   Caption = 'Samotnik'
   ClientHeight = 800
@@ -22,6 +21,8 @@ object Form4: TForm4
     Height = 800
     Align = alClient
     TabOrder = 0
+    ExplicitLeft = 176
+    ExplicitWidth = 824
     object InfoPanel: TPanel
       Left = 1
       Top = 1
@@ -29,6 +30,7 @@ object Form4: TForm4
       Height = 798
       Align = alLeft
       TabOrder = 0
+      ExplicitLeft = 0
       object Label1: TLabel
         Left = 8
         Top = 56
@@ -152,6 +154,7 @@ object Form4: TForm4
       Color = clLightslategray
       ParentBackground = False
       TabOrder = 1
+      ExplicitLeft = 207
     end
   end
   object MainMenu1: TMainMenu
