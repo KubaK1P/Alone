@@ -1,0 +1,17 @@
+object PromptStart: TPromptStart
+  Left = 0
+  Top = 0
+  BorderIcons = [biSystemMenu]
+  BorderStyle = bsDialog
+  Caption = 'PromptStart'
+  ClientHeight = 300
+  ClientWidth = 400
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -12
+  Font.Name = 'Segoe UI'
+  Font.Style = []
+  Position = poOwnerFormCenter
+  TextHeight = 15
+end

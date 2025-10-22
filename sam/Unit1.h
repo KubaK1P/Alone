@@ -1,0 +1,32 @@
+//---------------------------------------------------------------------------
+
+#ifndef Unit1H
+#define Unit1H
+//---------------------------------------------------------------------------
+#include <System.Classes.hpp>
+#include <Vcl.Controls.hpp>
+#include <Vcl.StdCtrls.hpp>
+#include <Vcl.Forms.hpp>
+#include <Vcl.ExtCtrls.hpp>
+//---------------------------------------------------------------------------
+class TPromptStart : public TForm
+{
+__published:	// IDE-managed Components
+	TLabel *Label1;
+	TRadioButton *RadioButton1;
+	TRadioButton *RadioButton2;
+	TLabel *Label2;
+	TEdit *xInput;
+	TEdit *yInput;
+	TButton *OKButton;
+	TButton *CancelButton;
+	void __fastcall OKButtonClick(TObject *Sender);
+	void __fastcall CancelButtonClick(TObject *Sender);
+private:	// User declarations
+public:		// User declarations
+	__fastcall TPromptStart(TComponent* Owner);
+};
+//---------------------------------------------------------------------------
+extern PACKAGE TPromptStart *PromptStart;
+//---------------------------------------------------------------------------
+#endif

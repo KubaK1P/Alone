@@ -1,0 +1,27 @@
+//---------------------------------------------------------------------------
+
+#include <vcl.h>
+#pragma hdrstop
+
+#include "Unit1.h"
+#include <Vcl.Forms.hpp>
+//---------------------------------------------------------------------------
+#pragma package(smart_init)
+#pragma resource "*.dfm"
+TPromptStart *PromptStart;
+//---------------------------------------------------------------------------
+__fastcall TPromptStart::TPromptStart(TComponent* Owner)
+	: TForm(Owner)
+{
+}
+//---------------------------------------------------------------------------
+void __fastcall TPromptStart::OKButtonClick(TObject *Sender)
+{
+    ModalResult = mrOK;
+}
+//---------------------------------------------------------------------------
+void __fastcall TPromptStart::CancelButtonClick(TObject *Sender)
+{
+    ModalResult = mrCancel;
+}
+//---------------------------------------------------------------------------
