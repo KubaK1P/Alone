@@ -315,20 +315,20 @@ void __fastcall TForm4::FormResize(TObject *Sender)
 
     double scale = (double)ClientWidth / baseWidth;
 
-	int baseFont_Label1 = 37;
-	int baseFont_Label2 = 22;
-	int baseFont_Label3 = 17;
-	int baseFont_Label4 = 17;
-	int baseFont_Label6 = 20;
-	int baseFont_Label7 = 12;
+	int baseFont_Label1 = 53;
+	int baseFont_Label2 = 30;
+	int baseFont_Label3 = 25;
+	int baseFont_Label4 = 25;
+	int baseFont_Label6 = 30;
+	int baseFont_Label7 = 20;
 
 	//min size
-	Label1->Font->Size = std::max(14, (int)(baseFont_Label1 * scale));
-	Label2->Font->Size = std::max(8, (int)(baseFont_Label2 * scale));
-	Label3->Font->Size = std::max(8, (int)(baseFont_Label3 * scale));
-	Label4->Font->Size = std::max(8, (int)(baseFont_Label4 * scale));
-	Label6->Font->Size = std::max(10, (int)(baseFont_Label6 * scale));
-	Label7->Font->Size = std::max(8, (int)(baseFont_Label7 * scale));
+	Label1->Font->Size = std::max(14, (int)(baseFont_Label1 / scale));
+	Label2->Font->Size = std::max(8, (int)(baseFont_Label2 / scale));
+	Label3->Font->Size = std::max(8, (int)(baseFont_Label3 / scale));
+	Label4->Font->Size = std::max(8, (int)(baseFont_Label4 / scale));
+	Label6->Font->Size = std::max(10, (int)(baseFont_Label6 / scale));
+	Label7->Font->Size = std::max(8, (int)(baseFont_Label7 / scale));
 
 }
 //---------------------------------------------------------------------------
