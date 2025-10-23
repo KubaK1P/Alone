@@ -69,7 +69,9 @@ object PromptStart: TPromptStart
     Top = 232
     Width = 75
     Height = 25
+    Cursor = crHandPoint
     Caption = 'Start'
+    Default = True
     TabOrder = 4
     OnClick = OKButtonClick
   end

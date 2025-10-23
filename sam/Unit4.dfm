@@ -148,8 +148,14 @@ object Form4: TForm4
         Left = 16
         Top = 448
         Width = 163
-        Height = 25
+        Height = 41
         Caption = 'Rozpocznij gr'#281
+        Font.Charset = EASTEUROPE_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -20
+        Font.Name = 'Tw Cen MT Condensed'
+        Font.Style = []
+        ParentFont = False
         TabOrder = 0
         OnClick = Nowa1Click
       end
