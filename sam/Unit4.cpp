@@ -1,4 +1,4 @@
-//---------------------------------------------------------------------------
+Ôªø//---------------------------------------------------------------------------
 
 #include <vcl.h>
 #pragma hdrstop
@@ -13,55 +13,62 @@
 #pragma resource "*.dfm"
 TForm4 *Form4;
 //---------------------------------------------------------------------------
+
 __fastcall TForm4::TForm4(TComponent* Owner)
 	: TForm(Owner)
 {
 	this->cSize = 108;
 	this->cMargin = 5;
 	this->pieceCount = -1;
+	this->selectedCell = nullptr;
+	this->gameOver = false;
+
+	// Initialize all pointers to null
+	for (int r = 0; r < BOARD_SIZE; r++)
+		for (int c = 0; c < BOARD_SIZE; c++)
+			cellPanels[r][c] = nullptr;
 
 	Timer1->Enabled = false;
 }
+
 //---------------------------------------------------------------------------
+
 void __fastcall TForm4::Nowa1Click(TObject *Sender)
 {
-	// open a prompt window asking about the board
-	// type and the starting empty spot position
 	std::unique_ptr<TPromptStart> dlg(new TPromptStart(this));
 
 	if (dlg->ShowModal() == mrOk) {
-	   int x, y;
+		int x, y;
 
-	   if (!TryStrToInt(dlg->xInput->Text, x) || !TryStrToInt(dlg->yInput->Text, y)) {
-		ShowMessage("Wprowadü koordynaty pola poczπtkowego od 1 do " + String(BOARD_SIZE) + " (x, y)");
-		return;
-	   }
+		if (!TryStrToInt(dlg->xInput->Text, x) || !TryStrToInt(dlg->yInput->Text, y)) {
+			ShowMessage("Wprowad≈∫ koordynaty pola poczƒÖtkowego od 1 do " + String(BOARD_SIZE) + " (x, y)");
+			return;
+		}
 
-	   if ((x > BOARD_SIZE || x < 1 ) || (y < 1 || y > BOARD_SIZE)) {
-		ShowMessage("Wprowadü koordynaty pola poczπtkowego od 1 do " + String(BOARD_SIZE) + " (x, y)");
-		return;
-	   }
+		if ((x > BOARD_SIZE || x < 1) || (y < 1 || y > BOARD_SIZE)) {
+			ShowMessage("Wprowad≈∫ koordynaty pola poczƒÖtkowego od 1 do " + String(BOARD_SIZE) + " (x, y)");
+			return;
+		}
 
-	   this->emptySquareX = x;
-	   this->emptySquareY = y;
-	   this->boardType = (dlg->RadioButton1->Checked)? 1 : 0;
+		this->emptySquareX = x;
+		this->emptySquareY = y;
+		this->boardType = (dlg->RadioButton1->Checked) ? 1 : 0;
 
-//	   ShowMessage("Pusta pozycja: (" + String(this->emptySquareX) + ", " + String(this->emptySquareY) + "), Typ planszy: " + String(this->boardType));
+		if (this->CreateBoard(this->boardType, this->emptySquareX, this->emptySquareY) == 1)
+			return;
 
-	   if (this->CreateBoard(this->boardType, this->emptySquareX, this->emptySquareY) == 1) {
-		   return;
-	   }
-	   this->DrawBoard();
-	   this->elapsedTimeMs = 0;
-	   Timer1->Enabled = true;
-	   TimerDisplay->Font->Color = clBlack;
+		this->DrawBoard();
+		this->elapsedTimeMs = 0;
+		Timer1->Enabled = true;
+		TimerDisplay->Font->Color = clBlack;
 
 	} else {
-		ShowMessage("Nie to nie, ja mam ca≥y dzieÒ...");
+		ShowMessage("Nie to nie, ja mam ca≈Çy dzie≈Ñ...");
 	}
-
 }
+
 //---------------------------------------------------------------------------
+
 int TForm4::CreateBoard(short bt, int x, int y) {
 	const int CLASSIC_TEMPLATE[BOARD_SIZE][BOARD_SIZE] = {
 		{-1, -1,  1,  1,  1, -1, -1},
@@ -83,161 +90,155 @@ int TForm4::CreateBoard(short bt, int x, int y) {
 		{-1, -1,  1,  1,  1, -1, -1}
 	};
 
-	for (int row = 0; row < BOARD_SIZE; row++) {
-		for (int col = 0; col < BOARD_SIZE; col++) {
-			this->board[row][col] = (bt != 1)? NEW_TEMPLATE[row][col] : CLASSIC_TEMPLATE[row][col];
+	// Clean up old panels first
+	for (int r = 0; r < BOARD_SIZE; r++) {
+		for (int c = 0; c < BOARD_SIZE; c++) {
+			if (cellPanels[r][c]) {
+				delete cellPanels[r][c];
+				cellPanels[r][c] = nullptr;
+			}
 		}
 	}
 
-	if (x >= 1 && x <= BOARD_SIZE && y >= 1 && y <= BOARD_SIZE)
-	{
-		int &cell = this->board[y - 1][x - 1];
+	// Copy template
+	for (int row = 0; row < BOARD_SIZE; row++) {
+		for (int col = 0; col < BOARD_SIZE; col++) {
+			this->board[row][col] = (bt != 1) ? NEW_TEMPLATE[row][col] : CLASSIC_TEMPLATE[row][col];
+		}
+	}
 
-		if(cell == -1) {
-			ShowMessage("Koordynaty (" + String(x) + ", " + String(y) + ") sπ poza wybranπ planszπ");
+	// Set empty square
+	if (x >= 1 && x <= BOARD_SIZE && y >= 1 && y <= BOARD_SIZE) {
+		int &cell = this->board[y - 1][x - 1];
+		if (cell == -1) {
+			ShowMessage("Koordynaty (" + String(x) + ", " + String(y) + ") sƒÖ poza wybranƒÖ planszƒÖ");
 			return 1;
 		}
-
 		cell = 0;
-
-	} else
-	{
-		ShowMessage("Wprowadü poprawne wspÛ≥rzÍdne w zakresie 1ñ" + String(BOARD_SIZE));
+	} else {
+		ShowMessage("Wprowad≈∫ poprawne wsp√≥≈Çrzƒôdne w zakresie 1‚Äì" + String(BOARD_SIZE));
 		return 1;
 	}
 
 	this->gameOver = false;
 	this->UpdateRemainingPieces();
 
-
-	// just for debbuging
-//		String msg;
-//	for (int r = 0; r < BOARD_SIZE; ++r)
-//	{
-//		for (int c = 0; c < BOARD_SIZE; ++c)
-//		{
-//			if (board[r][c] == -1)
-//				msg += " . ";
-//			else
-//				msg += String(board[r][c]) + " ";
-//		}
-//		msg += "\n";
-//	}
-//	ShowMessage(msg);
-return 0;
-}
-//--------------------------------------------------------------------------------------------------------------
-//refreshes the board for the user (maybe) (occasionally) edit: (just so happens to be after every flocking click causing the user three brain tumors)
-
-void TForm4::DrawBoard() {
+	// Create all panels once
 	const int cellSize = this->cSize;
 	const int margin = this->cMargin;
 
-	for (int i = GamePanel->ControlCount - 1; i >= 0; i--)
-	{
-		TControl *ctrl = GamePanel->Controls[i];
-		delete ctrl;     // pretty self explanatory
-	}
-
-
-	// create the TPanels xd actually
 	for (int row = 0; row < BOARD_SIZE; row++) {
 		for (int col = 0; col < BOARD_SIZE; col++) {
-
-			if (board[row][col] == -1) {
-				continue;
-			}
+			if (board[row][col] == -1) continue;
 
 			TPanel *cell = new TPanel(GamePanel);
+			cellPanels[row][col] = cell;
 			cell->Parent = GamePanel;
-
 			cell->Width = cellSize;
 			cell->Height = cellSize;
 
-            HRGN rgn = CreateRoundRectRgn(0, 0, cell->Width, cell->Height, 15, 15); // rounds corners
+			HRGN rgn = CreateRoundRectRgn(0, 0, cell->Width, cell->Height, 15, 15);
 			SetWindowRgn(cell->Handle, rgn, TRUE);
-
 
 			cell->Left = col * (cellSize + margin) + margin;
 			cell->Top = row * (cellSize + margin) + margin;
 
 			cell->Tag = row * BOARD_SIZE + col;
-
-            cell->ParentBackground = false;
-			cell->Color = (board[row][col] == 1) ? clWhite : (board[row][col] == 0 ? clBlue : clWhite);
-
-			// Highlight selected tile
-			if (selectedCell != nullptr && cell->Tag == selectedCell->Tag) {
-				cell->Color = clBlack; // or clYellow for selection
-			}
-
-
-			cell->OnClick = this->CellClick; // test
+			cell->ParentBackground = false;
+			cell->OnClick = this->CellClick;
 		}
 	}
 
+	return 0;
 }
 
-//-----------------------------------------------------------------------------
-		   // handle the clih       please
+//---------------------------------------------------------------------------
+
+void TForm4::DrawBoard() {
+	for (int row = 0; row < BOARD_SIZE; row++) {
+		for (int col = 0; col < BOARD_SIZE; col++) {
+
+			TPanel *cell = cellPanels[row][col];
+			if (!cell) continue;
+
+			if (board[row][col] == -1) {
+				cell->Visible = false;
+				continue;
+			}
+
+			cell->Visible = true;
+
+			// Base colors
+			if (board[row][col] == 1)
+				cell->Color = clWhite;
+			else if (board[row][col] == 0)
+				cell->Color = clBlue;
+			else
+				cell->Color = clWhite;
+
+			// Highlight selected tile
+			if (selectedCell != nullptr && cell->Tag == selectedCell->Tag)
+				cell->Color = clBlack;
+		}
+	}
+}
+
+//---------------------------------------------------------------------------
+
 void __fastcall TForm4::CellClick(TObject *Sender)
 {
-
 	if (this->gameOver) {
-    selectedCell = nullptr; // extra safety
-    return;
-}
+		selectedCell = nullptr;
+		return;
+	}
 
-    TPanel *cell = dynamic_cast<TPanel*>(Sender);
-    if (!cell) return;
+	TPanel *cell = dynamic_cast<TPanel*>(Sender);
+	if (!cell) return;
 
-    int row = cell->Tag / BOARD_SIZE;
-    int col = cell->Tag % BOARD_SIZE;
+	int row = cell->Tag / BOARD_SIZE;
+	int col = cell->Tag % BOARD_SIZE;
 
-    if (board[row][col] != 0) {
-        // Selecting a piece to move
-        selectedCell = cell;
-    } else if (selectedCell != nullptr) {
-        // Selecting target empty cell
-        int srcRow = selectedCell->Tag / BOARD_SIZE;
-        int srcCol = selectedCell->Tag % BOARD_SIZE;
+	if (board[row][col] != 0) {
+		selectedCell = cell;
+	} else if (selectedCell != nullptr) {
+		int srcRow = selectedCell->Tag / BOARD_SIZE;
+		int srcCol = selectedCell->Tag % BOARD_SIZE;
 
-        int dRow = row - srcRow;
-        int dCol = col - srcCol;
+		int dRow = row - srcRow;
+		int dCol = col - srcCol;
 
-        // Must jump exactly 2 spaces horizontally or vertically
-        if ((abs(dRow) == 2 && dCol == 0) || (abs(dCol) == 2 && dRow == 0)) {
-            // Check that the middle cell has a piece
-            int midRow = srcRow + dRow / 2;
-            int midCol = srcCol + dCol / 2;
+		if ((abs(dRow) == 2 && dCol == 0) || (abs(dCol) == 2 && dRow == 0)) {
+			int midRow = srcRow + dRow / 2;
+			int midCol = srcCol + dCol / 2;
 
-            if (board[midRow][midCol] != 0) {
-                // Execute move
-                board[row][col] = board[srcRow][srcCol]; // move piece
-                board[srcRow][srcCol] = 0;              // empty source
-                board[midRow][midCol] = 0;              // remove jumped piece
-                selectedCell = nullptr;
-            } else {
-				ShowMessage("Nie ma nad czym przeskoczyÊ!");
+			if (board[midRow][midCol] != 0) {
+				board[row][col] = board[srcRow][srcCol];
+				board[srcRow][srcCol] = 0;
+				board[midRow][midCol] = 0;
+				selectedCell = nullptr;
+			} else {
+				ShowMessage("Nie ma nad czym przeskoczyƒá!");
 			}
-        } else {
-			ShowMessage("Moøesz skakaÊ dok≥adnie dwa miejsca od czarnego kloca!");
-        }
-    }
+		} else {
+			ShowMessage("Mo≈ºesz skakaƒá dok≈Çadnie dwa miejsca od czarnego kloca!");
+		}
+	}
 
-	this->DrawBoard(); // redraw with highlights
+	this->DrawBoard();
 	this->UpdateRemainingPieces();
 
 	if (!HasValidMoves()) {
-        int remainingPieces = CountPieces();
-		gameOver = true; // <-- stop further moves
-		 selectedCell = nullptr; // clear any selection
-		DrawBoard(); // redraw without highlights
+		int remainingPieces = CountPieces();
+		gameOver = true;
+		selectedCell = nullptr;
+		DrawBoard();
 		Timer1->Enabled = false;
 		TimerDisplay->Font->Color = clRed;
-		ShowMessage("Koniec gry, zosta≥o: " + String(remainingPieces)+ " klocek...");
-    }
+		ShowMessage("Koniec gry, zosta≈Ço: " + String(remainingPieces) + " klocek...");
+	}
 }
+
+
 
 //----------------------------------------------------------------------------
 
@@ -311,7 +312,7 @@ void __fastcall TForm4::FormResize(TObject *Sender)
 {
 	//resize here actually
 
-    int baseWidth = 800;
+	int baseWidth = 800;
 
     double scale = (double)ClientWidth / baseWidth;
 
@@ -332,4 +333,3 @@ void __fastcall TForm4::FormResize(TObject *Sender)
 
 }
 //---------------------------------------------------------------------------
-

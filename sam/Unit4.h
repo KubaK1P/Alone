@@ -47,6 +47,8 @@ private:	// User declarations
 	bool gameOver = false;
 	int pieceCount;
 	int elapsedTimeMs = 0;
+	TPanel* cellPanels[BOARD_SIZE][BOARD_SIZE];
+
 public:		// User declarations
 	__fastcall TForm4(TComponent* Owner);
 	int CreateBoard(short bt, int x, int y);
