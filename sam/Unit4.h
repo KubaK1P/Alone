@@ -30,6 +30,7 @@ __published:	// IDE-managed Components
 	TLabel *Label6;
 	TLabel *Label7;
 	TTimer *Timer1;
+	TButton *Button1;
 	void __fastcall Nowa1Click(TObject *Sender);
 	void __fastcall Timer1Timer(TObject *Sender);
 private:	// User declarations
@@ -46,7 +47,7 @@ private:	// User declarations
 	int elapsedTimeMs = 0;
 public:		// User declarations
 	__fastcall TForm4(TComponent* Owner);
-	void CreateBoard(short bt, int x, int y);
+	int CreateBoard(short bt, int x, int y);
 	void DrawBoard();
 	void __fastcall CellClick(TObject *Sender);
 	bool HasValidMoves();

@@ -22,6 +22,8 @@ object Form4: TForm4
     Height = 800
     Align = alClient
     TabOrder = 0
+    ExplicitWidth = 998
+    ExplicitHeight = 792
     object InfoPanel: TPanel
       Left = 1
       Top = 1
@@ -29,6 +31,7 @@ object Form4: TForm4
       Height = 798
       Align = alLeft
       TabOrder = 0
+      ExplicitHeight = 790
       object Label1: TLabel
         Left = 8
         Top = 56
@@ -142,6 +145,15 @@ object Form4: TForm4
         Font.Style = []
         ParentFont = False
       end
+      object Button1: TButton
+        Left = 16
+        Top = 448
+        Width = 163
+        Height = 25
+        Caption = 'Rozpocznij gr'#281
+        TabOrder = 0
+        OnClick = Nowa1Click
+      end
     end
     object GamePanel: TPanel
       Left = 201
@@ -152,6 +164,8 @@ object Form4: TForm4
       Color = clLightslategray
       ParentBackground = False
       TabOrder = 1
+      ExplicitWidth = 796
+      ExplicitHeight = 790
     end
   end
   object MainMenu1: TMainMenu

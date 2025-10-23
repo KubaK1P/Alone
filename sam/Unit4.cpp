@@ -19,7 +19,7 @@ __fastcall TForm4::TForm4(TComponent* Owner)
 	this->cMargin = 5;
 	this->pieceCount = -1;
 
-    Timer1->Enabled = false;
+	Timer1->Enabled = false;
 }
 //---------------------------------------------------------------------------
 void __fastcall TForm4::Nowa1Click(TObject *Sender)
@@ -47,19 +47,21 @@ void __fastcall TForm4::Nowa1Click(TObject *Sender)
 
 //	   ShowMessage("Pusta pozycja: (" + String(this->emptySquareX) + ", " + String(this->emptySquareY) + "), Typ planszy: " + String(this->boardType));
 
-	   this->CreateBoard(this->boardType, this->emptySquareX, this->emptySquareY);
+	   if (this->CreateBoard(this->boardType, this->emptySquareX, this->emptySquareY) == 1) {
+		   return;
+	   }
 	   this->DrawBoard();
-       this->elapsedTimeMs = 0;
+	   this->elapsedTimeMs = 0;
 	   Timer1->Enabled = true;
-       TimerDisplay->Font->Color = clBlack;
+	   TimerDisplay->Font->Color = clBlack;
 
 	} else {
 		ShowMessage("Nie to nie, ja mam ca³y dzieñ...");
-    }
+	}
 
 }
 //---------------------------------------------------------------------------
-void TForm4::CreateBoard(short bt, int x, int y) {
+int TForm4::CreateBoard(short bt, int x, int y) {
 	const int CLASSIC_TEMPLATE[BOARD_SIZE][BOARD_SIZE] = {
 		{-1, -1,  1,  1,  1, -1, -1},
 		{-1, -1,  1,  1,  1, -1, -1},
@@ -86,13 +88,13 @@ void TForm4::CreateBoard(short bt, int x, int y) {
 		}
 	}
 
-    if (x >= 1 && x <= BOARD_SIZE && y >= 1 && y <= BOARD_SIZE)
+	if (x >= 1 && x <= BOARD_SIZE && y >= 1 && y <= BOARD_SIZE)
 	{
 		int &cell = this->board[y - 1][x - 1];
 
 		if(cell == -1) {
 			ShowMessage("Koordynaty (" + String(x) + ", " + String(y) + ") s¹ poza wybran¹ plansz¹");
-            return;
+			return 1;
 		}
 
 		cell = 0;
@@ -100,11 +102,11 @@ void TForm4::CreateBoard(short bt, int x, int y) {
 	} else
 	{
 		ShowMessage("WprowadŸ poprawne wspó³rzêdne w zakresie 1–" + String(BOARD_SIZE));
-		return;
+		return 1;
 	}
 
 	this->gameOver = false;
-    this->UpdateRemainingPieces();
+	this->UpdateRemainingPieces();
 
 
 	// just for debbuging
@@ -121,6 +123,7 @@ void TForm4::CreateBoard(short bt, int x, int y) {
 //		msg += "\n";
 //	}
 //	ShowMessage(msg);
+return 0;
 }
 //--------------------------------------------------------------------------------------------------------------
 //refreshes the board for the user (maybe) (occasionally) edit: (just so happens to be after every flocking click causing the user three brain tumors)
