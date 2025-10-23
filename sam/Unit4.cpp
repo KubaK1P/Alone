@@ -7,6 +7,7 @@
 #include "Unit1.h"
 #include <Vcl.Forms.hpp>
 #include <System.SysUtils.hpp>
+#include <algorithm>
 //---------------------------------------------------------------------------
 #pragma package(smart_init)
 #pragma resource "*.dfm"
@@ -299,3 +300,36 @@ void __fastcall TForm4::Timer1Timer(TObject *Sender)
 void TForm4::UpdateTimerDisplay(String timestr) {
   TimerDisplay->Caption = timestr;
 }
+void __fastcall TForm4::FormShow(TObject *Sender)
+{
+   //Resize the text accordingly
+   FormResize(Sender);
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm4::FormResize(TObject *Sender)
+{
+	//resize here actually
+
+    int baseWidth = 800;
+
+    double scale = (double)ClientWidth / baseWidth;
+
+	int baseFont_Label1 = 37;
+	int baseFont_Label2 = 22;
+	int baseFont_Label3 = 17;
+	int baseFont_Label4 = 17;
+	int baseFont_Label6 = 20;
+	int baseFont_Label7 = 12;
+
+	//min size
+	Label1->Font->Size = std::max(14, (int)(baseFont_Label1 * scale));
+	Label2->Font->Size = std::max(8, (int)(baseFont_Label2 * scale));
+	Label3->Font->Size = std::max(8, (int)(baseFont_Label3 * scale));
+	Label4->Font->Size = std::max(8, (int)(baseFont_Label4 * scale));
+	Label6->Font->Size = std::max(10, (int)(baseFont_Label6 * scale));
+	Label7->Font->Size = std::max(8, (int)(baseFont_Label7 * scale));
+
+}
+//---------------------------------------------------------------------------
+

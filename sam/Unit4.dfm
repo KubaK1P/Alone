@@ -14,6 +14,8 @@ object Form4: TForm4
   Font.Style = []
   Menu = MainMenu1
   Position = poScreenCenter
+  OnResize = FormResize
+  OnShow = FormShow
   TextHeight = 15
   object Layout: TPanel
     Left = 0
@@ -22,8 +24,6 @@ object Form4: TForm4
     Height = 800
     Align = alClient
     TabOrder = 0
-    ExplicitWidth = 998
-    ExplicitHeight = 792
     object InfoPanel: TPanel
       Left = 1
       Top = 1
@@ -31,7 +31,6 @@ object Form4: TForm4
       Height = 798
       Align = alLeft
       TabOrder = 0
-      ExplicitHeight = 790
       object Label1: TLabel
         Left = 8
         Top = 56
@@ -121,7 +120,7 @@ object Form4: TForm4
         Top = 720
         Width = 171
         Height = 38
-        Cursor = crNo
+        Cursor = crHourGlass
         Caption = '+48 516 483 644'
         Font.Charset = EASTEUROPE_CHARSET
         Font.Color = clSkyBlue
@@ -135,7 +134,7 @@ object Form4: TForm4
         Top = 740
         Width = 76
         Height = 34
-        Cursor = crNo
+        Cursor = crHourGlass
         Caption = 'hihihiihiiihii'
         Font.Charset = EASTEUROPE_CHARSET
         Font.Color = clActiveCaption
@@ -164,8 +163,6 @@ object Form4: TForm4
       Color = clLightslategray
       ParentBackground = False
       TabOrder = 1
-      ExplicitWidth = 796
-      ExplicitHeight = 790
     end
   end
   object MainMenu1: TMainMenu

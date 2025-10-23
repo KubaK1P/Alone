@@ -33,6 +33,8 @@ __published:	// IDE-managed Components
 	TButton *Button1;
 	void __fastcall Nowa1Click(TObject *Sender);
 	void __fastcall Timer1Timer(TObject *Sender);
+	void __fastcall FormShow(TObject *Sender);
+	void __fastcall FormResize(TObject *Sender);
 private:	// User declarations
 	int emptySquareX;
 	int emptySquareY;
